@@ -1,0 +1,87 @@
+
+
+
+
+<?php
+$db = mysqli_connect("localhost", "root", "", "stock_managment");
+
+$id = $_GET['id'];
+
+// Select data associated with this particular id
+$result = mysqli_query($db, "SELECT * FROM Users WHERE id = '$id'");
+
+// Fetch the next row of a result set as an associative array
+$resultData = mysqli_fetch_assoc($result);
+
+$Fname = $resultData['first_name'];
+$Lname = $resultData['last_name'];
+$email = $resultData['email'];
+$password = $resultData['password'];
+?>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Stocksmanagement</title>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+<?php
+        if (isset($_SESSION['message'])) {
+            echo "<div id='error_msg'>" . $_SESSION['message'] . "</div>";
+            unset($_SESSION['message']);
+        }
+        ?>
+	<div class="screen">
+		<div class="screen__content">
+        
+			<form class="login" action="adEditActionUsers.php" method="post">
+            <h1>Edit</h1>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input class="login__input" type="text" name="first_name" value="<?php echo $Fname; ?>" placeholder="First Name">
+				</div>
+                <div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input class="login__input" type="text" name="last_name" value="<?php echo $Lname; ?>" placeholder="Last Name">
+				</div>
+                <div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input class="login__input" type="text" name="email" value="<?php echo $email; ?>" placeholder="Email">
+				</div>
+				
+					<input class="login__input" type="hidden" name="id" value=<?php echo $id; ?>> 
+				
+                
+				<button class="button login__submit" type="submit" name="update" value="Update">>
+					<span class="button__text">Confirm</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>
+                <br>
+                
+			</form>
+			
+            
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>
+
